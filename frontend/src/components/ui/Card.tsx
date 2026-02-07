@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import clsx from "clsx";
-import { ReactNode } from "react";
+import { ReactNode, memo } from "react";
 
 interface CardProps {
   children: ReactNode;
@@ -10,7 +10,8 @@ interface CardProps {
   hoverEffect?: boolean;
 }
 
-export default function Card({ children, className, hoverEffect = true }: CardProps) {
+// Memoized Card component to prevent unnecessary re-renders
+const Card = memo(function Card({ children, className, hoverEffect = true }: CardProps) {
   return (
     <motion.div
       whileHover={hoverEffect ? { y: -5, borderColor: "rgba(255,255,255,0.2)" } : undefined}
@@ -23,4 +24,6 @@ export default function Card({ children, className, hoverEffect = true }: CardPr
       {children}
     </motion.div>
   );
-}
+});
+
+export default Card;

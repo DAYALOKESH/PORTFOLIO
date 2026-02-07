@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import clsx from "clsx";
-import { ReactNode } from "react";
+import { ReactNode, memo } from "react";
 
 interface SectionProps {
   children: ReactNode;
@@ -11,7 +11,8 @@ interface SectionProps {
   delay?: number;
 }
 
-export default function Section({ children, id, className, delay = 0 }: SectionProps) {
+// Memoized Section component to prevent unnecessary re-renders
+const Section = memo(function Section({ children, id, className, delay = 0 }: SectionProps) {
   return (
     <section id={id} className={clsx("py-20 md:py-32 relative", className)}>
       <motion.div
@@ -25,4 +26,6 @@ export default function Section({ children, id, className, delay = 0 }: SectionP
       </motion.div>
     </section>
   );
-}
+});
+
+export default Section;

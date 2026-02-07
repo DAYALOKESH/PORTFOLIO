@@ -2,9 +2,10 @@
 
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { resumeData } from "@/data/resume";
-import { useRef } from "react";
+import { useRef, memo } from "react";
 
-export default function Hero() {
+// Memoized Hero component for better performance
+const Hero = memo(function Hero() {
   const { name, role, summary } = resumeData.personalInfo;
   const ref = useRef<HTMLElement>(null);
 
@@ -169,4 +170,6 @@ export default function Hero() {
       </motion.div>
     </section>
   );
-}
+});
+
+export default Hero;
