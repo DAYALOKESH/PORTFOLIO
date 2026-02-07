@@ -22,8 +22,7 @@ export default function Hero() {
   const smoothOpacity = useSpring(opacity, { stiffness: 100, damping: 30 });
   const smoothScale = useSpring(scale, { stiffness: 100, damping: 30 });
 
-  // Split name for staggered effect
-  const nameParts = name.split(" ");
+  // Split name for staggered effect - REMOVED for performance
 
   return (
     <section
@@ -62,14 +61,14 @@ export default function Hero() {
           }}
         />
 
-        {/* Floating particles */}
-        {[...Array(8)].map((_, i) => (
+        {/* Floating particles - REDUCED from 8 to 3 for performance */}
+        {[...Array(3)].map((_, i) => (
           <motion.div
             key={i}
             className="absolute w-1 h-1 bg-accent/40 rounded-full"
             style={{
-              left: `${10 + i * 12}%`,
-              top: `${20 + (i % 4) * 20}%`,
+              left: `${15 + i * 30}%`,
+              top: `${30 + i * 20}%`,
             }}
             animate={{
               y: [0, -100, 0],
@@ -108,34 +107,25 @@ export default function Hero() {
           </motion.p>
         </motion.div>
 
-        {/* Name with staggered character animation */}
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter mb-6 text-white overflow-hidden">
-          {nameParts.map((part, i) => (
-            <span key={i} className="inline-block mr-4 md:mr-8 overflow-hidden">
-              {part.split('').map((char, charIndex) => (
-                <motion.span
-                  key={charIndex}
-                  className="inline-block"
-                  initial={{ y: 100, opacity: 0, rotateX: 90 }}
-                  animate={{ y: 0, opacity: 1, rotateX: 0 }}
-                  transition={{
-                    delay: 0.3 + i * 0.15 + charIndex * 0.03,
-                    duration: 0.6,
-                    ease: [0.25, 0.4, 0.25, 1]
-                  }}
-                >
-                  {char}
-                </motion.span>
-              ))}
-            </span>
-          ))}
-        </h1>
+        {/* Simplified name animation - removed character-by-character for performance */}
+        <motion.h1
+          className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter mb-6 text-white"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            delay: 0.3,
+            duration: 0.8,
+            ease: [0.25, 0.4, 0.25, 1]
+          }}
+        >
+          {name}
+        </motion.h1>
 
         {/* Role with slide and fade */}
         <motion.p
-          initial={{ opacity: 0, x: -50, filter: "blur(10px)" }}
-          animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-          transition={{ delay: 1, duration: 0.8, ease: "easeOut" }}
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.6, duration: 0.8, ease: "easeOut" }}
           className="text-xl md:text-2xl text-muted max-w-2xl leading-relaxed"
         >
           {role}
@@ -145,14 +135,14 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2, duration: 0.8 }}
+          transition={{ delay: 0.8, duration: 0.8 }}
           className="mt-8 text-muted/80 max-w-xl text-sm md:text-base relative"
         >
           <motion.div
             className="absolute -left-4 top-0 bottom-0 w-[2px] bg-gradient-to-b from-accent via-accent/50 to-transparent"
             initial={{ height: 0 }}
             animate={{ height: "100%" }}
-            transition={{ delay: 1.4, duration: 0.8 }}
+            transition={{ delay: 1, duration: 0.8 }}
           />
           <p className="pl-4">{summary}</p>
         </motion.div>
@@ -162,7 +152,7 @@ export default function Hero() {
           className="absolute bottom-12 left-1/2 -translate-x-1/2"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 2, duration: 1 }}
+          transition={{ delay: 1.2, duration: 1 }}
         >
           <motion.div
             className="w-6 h-10 border-2 border-white/20 rounded-full flex justify-center pt-2"
