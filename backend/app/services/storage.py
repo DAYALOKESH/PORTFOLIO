@@ -2,6 +2,7 @@
 Storage service for file uploads.
 Supports local file storage (dev) and S3 (production).
 """
+import asyncio
 import os
 import shutil
 from pathlib import Path
@@ -73,10 +74,12 @@ class StorageService:
     ) -> dict[str, str]:
         """Upload file to local filesystem."""
         folder = self.local_path / subfolder
-        folder.mkdir(exist_ok=True)
+        # Use asyncio.to_thread for blocking I/O
+        await asyncio.to_thread(folder.mkdir, exist_ok=True)
         
         file_path = folder / filename
-        file_path.write_bytes(file_content)
+        # Use asyncio.to_thread for blocking I/O
+        await asyncio.to_thread(file_path.write_bytes, file_content)
         
         # Return URL path relative to static serving
         url = f"/uploads/{subfolder}/{filename}"
@@ -148,8 +151,9 @@ class StorageService:
         """Delete file from local filesystem."""
         file_path = self.local_path / key
         
-        if file_path.exists():
-            file_path.unlink()
+        # Use asyncio.to_thread for blocking I/O
+        if await asyncio.to_thread(file_path.exists):
+            await asyncio.to_thread(file_path.unlink)
             logger.info(f"File deleted locally: {file_path}")
             return True
         
