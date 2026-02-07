@@ -1,6 +1,15 @@
 import Hero from "@/components/sections/Hero";
-import RecentPosts from "@/components/sections/RecentPosts";
+import dynamic from "next/dynamic";
 import Link from "next/link";
+
+// Lazy load RecentPosts as it's below the fold
+const RecentPosts = dynamic(() => import("@/components/sections/RecentPosts"), {
+  loading: () => (
+    <div className="min-h-[400px] flex items-center justify-center">
+      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent" />
+    </div>
+  ),
+});
 
 export default function Home() {
   return (
