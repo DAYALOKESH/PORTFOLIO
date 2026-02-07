@@ -30,6 +30,9 @@ const Icon = ({
 }) => {
     const ref = React.useRef<HTMLDivElement>(null);
 
+    // Use index-based duration for stable, deterministic animation
+    const animationDuration = 6 + (index % 5);
+
     const x = useMotionValue(0);
     const y = useMotionValue(0);
     const springX = useSpring(x, { stiffness: 200, damping: 25 });
@@ -88,7 +91,7 @@ const Icon = ({
                     rotate: [0, 3, 0, -3, 0],
                 }}
                 transition={{
-                    duration: 6 + Math.random() * 4,
+                    duration: animationDuration,
                     repeat: Infinity,
                     repeatType: 'mirror',
                     ease: 'easeInOut',

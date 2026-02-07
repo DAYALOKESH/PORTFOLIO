@@ -8,8 +8,7 @@ import {
   ScrollReveal,
   StaggerContainer,
   StaggerItem,
-  SlideIn,
-  BlurReveal
+  SlideIn
 } from "@/components/animations/scroll-animations";
 
 export default function Experience() {

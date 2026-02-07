@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import api from '@/lib/api/api';
-import { BlogPost } from '@/types';
+import { BlogPost, Tag } from '@/types';
 import Section from "@/components/ui/Section";
 import Card from "@/components/ui/Card";
 
@@ -48,7 +48,7 @@ export default function BlogPage() {
           <Link key={post.slug} href={`/blog/${post.slug}`} className="block h-full">
             <Card className="flex flex-col h-full group cursor-pointer hover:border-accent/50 transition-colors">
               <div className="flex gap-2 mb-4 flex-wrap">
-                {post.tags.map((tag: any) => (
+                {post.tags.map((tag: Tag | string) => (
                   <span key={typeof tag === 'string' ? tag : tag.name} className="text-xs font-mono text-accent bg-accent/10 px-2 py-1 rounded">
                     {typeof tag === 'string' ? tag : tag.name}
                   </span>

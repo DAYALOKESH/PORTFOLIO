@@ -254,7 +254,7 @@ function SkillCategory({
 }: {
     title: string;
     items: string[];
-    icon: any;
+    icon: React.ComponentType<{ size: number; className?: string }>;
     accentColor: string;
 }) {
     const ref = useRef<HTMLDivElement>(null);

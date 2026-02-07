@@ -1,8 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
-import { ExternalLink, Github, Filter, Code, Calendar } from 'lucide-react';
+import { ExternalLink, Github } from 'lucide-react';
 import api from '@/lib/api/api';
 import { Project } from '@/types';
 import Section from "@/components/ui/Section";

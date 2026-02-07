@@ -7,9 +7,16 @@ import { GraduationCap } from "lucide-react";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import {
-  ScrollReveal,
-  ScaleOnScroll
+  ScrollReveal
 } from "@/components/animations/scroll-animations";
+
+interface EducationData {
+  institution: string;
+  degree: string;
+  period: string;
+  location: string;
+  details?: string[];
+}
 
 export default function Education() {
   return (
@@ -32,7 +39,7 @@ export default function Education() {
   );
 }
 
-function EducationCard({ edu, index }: { edu: any; index: number }) {
+function EducationCard({ edu, index }: { edu: EducationData; index: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: false, margin: "-50px" });
 

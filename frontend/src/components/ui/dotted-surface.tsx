@@ -22,6 +22,9 @@ export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
     useEffect(() => {
         if (!containerRef.current) return;
 
+        // Capture container ref early for cleanup
+        const container = containerRef.current;
+
         const SEPARATION = 150;
         const AMOUNTX = 40;
         const AMOUNTY = 60;
@@ -46,10 +49,9 @@ export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setClearColor(scene.fog.color, 0);
 
-        containerRef.current.appendChild(renderer.domElement);
+        container.appendChild(renderer.domElement);
 
         // Create particles
-        const particles: THREE.Points[] = [];
         const positions: number[] = [];
         const colors: number[] = [];
 
@@ -116,15 +118,6 @@ export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
 
             positionAttribute.needsUpdate = true;
 
-            // Update point sizes based on wave
-            const customMaterial = material as THREE.PointsMaterial & {
-                uniforms?: any;
-            };
-            if (!customMaterial.uniforms) {
-                // For dynamic size changes, we'd need a custom shader
-                // For now, keeping constant size for performance
-            }
-
             renderer.render(scene, camera);
             count += 0.1;
         };
@@ -172,8 +165,9 @@ export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
 
                 sceneRef.current.renderer.dispose();
 
-                if (containerRef.current && sceneRef.current.renderer.domElement) {
-                    containerRef.current.removeChild(
+                // Use captured container variable from effect scope
+                if (container && sceneRef.current.renderer.domElement.parentNode === container) {
+                    container.removeChild(
                         sceneRef.current.renderer.domElement,
                     );
                 }

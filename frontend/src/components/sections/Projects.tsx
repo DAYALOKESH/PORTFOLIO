@@ -7,10 +7,15 @@ import { Code2, ExternalLink } from "lucide-react";
 import { motion, useInView, useScroll, useTransform, useSpring } from "framer-motion";
 import { useRef } from "react";
 import {
-  ScrollReveal,
-  MaskReveal,
-  Parallax
+  ScrollReveal
 } from "@/components/animations/scroll-animations";
+
+interface ProjectData {
+  title: string;
+  link?: string;
+  techStack: string[];
+  description: string[];
+}
 
 export default function Projects() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -35,7 +40,7 @@ export default function Projects() {
   );
 }
 
-function ProjectCard({ project, index }: { project: any; index: number }) {
+function ProjectCard({ project, index }: { project: ProjectData; index: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: false, margin: "-100px" });
 

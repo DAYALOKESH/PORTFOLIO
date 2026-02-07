@@ -77,7 +77,7 @@ export default function Contact() {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            Let's Build Something{" "}
+            Let&apos;s Build Something{" "}
             <motion.span
               className="text-accent"
               animate={isInView ? {
@@ -102,7 +102,7 @@ export default function Contact() {
             animate={isInView ? { opacity: 1 } : { opacity: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            I am currently open to new opportunities. Whether you have a question or just want to say hi, I'll try my best to get back to you!
+            I am currently open to new opportunities. Whether you have a question or just want to say hi, I&apos;ll try my best to get back to you!
           </motion.p>
 
           <motion.div
